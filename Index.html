@@ -1,0 +1,1936 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <title>Material Selector</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Orbitron:wght@400..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      body {
+        font-family: Orbitron, serif;
+        /*   background-image: url('https://static.vecteezy.com/system/resources/thumbnails/007/169/676/small_2x/diagonal-japanese-geometric-wave-style-abstract-overlapping-circle-wavy-line-shape-seamless-pattern-with-subtle-blue-color-background-free-vector.jpg');
+   */
+      }
+      form {
+        max-width: 500px;
+        margin: auto;
+        padding: 1em;
+        border: 1px solid #ccc;
+        border-radius: 1em;
+      }
+      div {
+        margin-bottom: 1em;
+      }
+      label {
+        margin-bottom: 0.5em;
+        color: #333333;
+        display: block;
+      }
+      input,
+      select {
+        border: 1px solid #ccc;
+        padding: 0.5em;
+        font-size: 1em;
+        width: 100%;
+        box-sizing: border-box;
+        border-radius: 4px;
+      }
+      button {
+        padding: 0.7em;
+        color: #fff;
+        background-color: #007bff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #0056b3;
+      }
+      h1 {
+        text-align: center;
+        color: #2ba2bc;
+        font-family: Orbitron, serif;
+        font-size: 4em;
+      }
+      h2 {
+        text-align: center;
+        color: #2ba2bc;
+        font-family: Orbitron, serif;
+      }
+
+      h3 {
+        display: none;
+      }
+
+      h4 {
+        text-align: center;
+        color: #2ba2bc;
+        font-family: Orbitron, serif;
+      }
+    </style>
+
+    <style>
+      body {
+        font-family: Chakra Petch, serif;
+        background-color: #daeff5;
+      }
+      form {
+        max-width: 500px;
+        margin: auto;
+        padding: 1em;
+        border: 1px solid #ccc;
+        border-radius: 1em;
+        background-color: #afc2d2;
+      }
+      div {
+        margin-bottom: 1em;
+      }
+      label {
+        margin-bottom: 0.5em;
+        color: #333333;
+        display: block;
+      }
+      input,
+      select {
+        border: 1px solid #ccc;
+        padding: 0.5em;
+        font-size: 1em;
+        width: 100%;
+        box-sizing: border-box;
+        border-radius: 4px;
+      }
+      button {
+        padding: 0.7em;
+        color: #fff;
+        background-color: #2ba2bc;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #23c0f6;
+      }
+
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgb(0, 0, 0);
+        background-color: rgba(0, 0, 0, 0.4);
+      }
+      .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        border-radius: 10px;
+      }
+      .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+      }
+      .close:hover,
+      .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      #technologySelection h4 {
+        margin-bottom: 10px;
+        font-size: 1em; /* Adjusted to match label text size */
+        color: #333333; /* Matches other label text color */
+        font-family: Chakra Petch, serif;
+        text-align: left; /* Aligns text to the left for consistency */
+        font-weight: normal; /* Changed from bold to normal */
+      }
+
+      .checkbox-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .checkbox-group label {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 50px;
+        height: 40px;
+        border: 2px solid #ccc;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+        cursor: pointer;
+        transition: background-color 0.3s, border-color 0.3s;
+        text-align: center;
+        font-size: 14px;
+      }
+
+      .checkbox-group input[type="checkbox"] {
+        display: none;
+      }
+
+      .checkbox-group input[type="checkbox"]:checked + span {
+        background-color: #007bff;
+        color: white;
+        border: 2px solid #0056b3;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        font-weight: bold;
+      }
+
+      .checkbox-group input[type="checkbox"]:checked + span:hover {
+        box-shadow: 0 0 8px rgba(0, 123, 255, 0.8);
+      }
+    </style>
+  </head>
+  <body>
+    <h1>PrintIQ</h1>
+
+    <h2>3D Printing Material Selector</h2>
+
+    <form id="materialForm">
+      <div>
+        <label for="heatDeflectionTemp"
+          >Heat Deflection Temperature (Celsius):</label
+        >
+        <input
+          type="number"
+          id="heatDeflectionTemp"
+          name="heatDeflectionTemp"
+          required
+        />
+      </div>
+      <div>
+        <label for="tensileStrength">Tensile Strength (MPa):</label>
+        <input
+          type="number"
+          id="tensileStrength"
+          name="tensileStrength"
+          required
+        />
+      </div>
+      <div>
+        <label for="tensileModulus">Tensile Modulus (GPa):</label>
+        <input
+          type="number"
+          step="0.01"
+          id="tensileModulus"
+          name="tensileModulus"
+          required
+        />
+      </div>
+      <div>
+        <label for="maxPricePerKg">Max Price per kg (USD):</label>
+        <input type="number" id="maxPricePerKg" name="maxPricePerKg" required />
+      </div>
+
+      <div id="technologySelection">
+        <h4>Printing Technology:</h4>
+        <div class="checkbox-group">
+          <label for="fdm">
+            <input type="checkbox" id="fdm" name="technology" value="FDM" />
+            <span>FDM</span>
+          </label>
+          <label for="sla">
+            <input type="checkbox" id="sla" name="technology" value="SLA" />
+            <span>SLA</span>
+          </label>
+          <label for="sls">
+            <input type="checkbox" id="sls" name="technology" value="SLS" />
+            <span>SLS</span>
+          </label>
+        </div>
+      </div>
+
+      <button type="button" onclick="submitForm()">Submit</button>
+
+      <button type="reset" onclick="resetCharts()">Reset</button>
+
+      <button type="button" onclick="openModal()">Info</button>
+    </form>
+    <div id="results"></div>
+
+    <div>
+      <h3 class="hidden" id="hdtPriceTitle">
+        Heat Deflection Temperature vs Price per kg
+      </h3>
+      <canvas id="hdtPriceChart"></canvas>
+    </div>
+    <div>
+      <h3 class="hidden" id="tensileStrengthPriceTitle">
+        Tensile Strength vs Price per kg
+      </h3>
+      <canvas id="tensileStrengthPriceChart"></canvas>
+    </div>
+    <div>
+      <h3 class="hidden" id="tensileModulusPriceTitle">
+        Tensile Modulus vs Price per kg
+      </h3>
+      <canvas id="tensileModulusPriceChart"></canvas>
+    </div>
+
+    <div id="infoModal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2>Website Information</h2>
+        <p>
+          This is a website designed to help you find the appropriate 3D
+          printing material for your application. It contains over 60 materials,
+          along with all of the necessary printing conditions, and other
+          important information.
+        </p>
+        <p></p>
+        <ul>
+          <li>
+            <strong>Heat Deflection Temperature (at .45 Mpa):</strong> The
+            temperature at which the material deforms under a specified load.
+            (materials range from 35°C to 316°C)
+          </li>
+          <li>
+            <strong>Tensile Strength:</strong> The maximum stress the material
+            can withstand while being stretched or pulled before breaking.
+            (materials range from 11 Mpa to 990 Mpa)
+          </li>
+          <li>
+            <strong>Tensile Modulus:</strong> A measure of the stiffness of the
+            material. (materials range from .0078 Gpa to 191 Gpa)
+          </li>
+          <li>
+            <strong>Max Price per kg:</strong> The maximum acceptable price per
+            kilogram you are willing to pay for the material. (materials range
+            from 25 USD to 1330 USD per Kg)
+          </li>
+          <li>
+            <strong>Printing Technology:</strong> FDM: Filament Deposition Modeling, the most common and affordable type of 3D printing which uses filament (typically 1.75mm in diameter) and extrudes it onto a bed, layer by layer.
+            SLA: Stereolithography, uses either a laser or a UV LCD screen (MSLA) to cure a thin layer of UV cureable resin.
+            SLS: Selective Laser Sintering, uses a laser to melt a thin layer of plastic powder together.
+          </li>
+          
+          
+          
+          
+          
+          
+          
+          
+        </ul>
+        <p>Designed and created by Shane Avenius</p>
+      </div>
+    </div>
+
+    <script>
+      let charts = [];
+
+      function resetCharts() {
+        // Clear the chart canvases
+        const chartIds = [
+          "hdtPriceChart",
+          "tensileStrengthPriceChart",
+          "tensileModulusPriceChart",
+        ];
+        chartIds.forEach((chartId) => {
+          const canvas = document.getElementById(chartId);
+          const ctx = canvas.getContext("2d");
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+        });
+
+        // Clear results section
+        document.getElementById("results").innerHTML = "";
+      }
+
+      const materials = [
+        {
+          name: "PLA",
+          heatDeflectionTemp: 80,
+          tensileStrength: 56,
+          tensileModulus: 3.46,
+          maxPricePerKg: 25,
+          chemicalResistance: "fair",
+          bedTemp: 60,
+          enclosureTemp: 22,
+          hotendTemp: 200,
+          easeOfPrinting: "Easy",
+          otherInfo: "best starter material",
+          UL94V0: "no",
+          Flexible: "false",
+          Link: "https://www.3dxtech.com/product/ecomax-pla/",
+          Crystallinity: "Semicrystalline",
+          PrintingTechnology: "FDM",
+        },
+        {
+          name: "ABS",
+          heatDeflectionTemp: 95,
+          tensileStrength: 42,
+          tensileModulus: 2.34,
+          maxPricePerKg: 25,
+          chemicalResistance: "fair",
+          bedTemp: 100,
+          enclosureTemp: 60,
+          hotendTemp: 235,
+          easeOfPrinting: "Moderate",
+          otherInfo: "bad fumes",
+          UL94V0: "no",
+          Flexible: "false",
+          Link: "https://www.3dxtech.com/product/3dxtech-abs/",
+          Crystallinity: "Amorphous",
+          PrintingTechnology: "FDM",
+        },
+        {
+          name: "PETG",
+          heatDeflectionTemp: 76,
+          tensileStrength: 45,
+          tensileModulus: 1.65,
+          maxPricePerKg: 30,
+          chemicalResistance: "fair",
+          bedTemp: 70,
+          enclosureTemp: 22,
+          hotendTemp: 240,
+          easeOfPrinting: "easy",
+          otherInfo: "step up from PLA",
+          UL94V0: "no",
+          Flexible: "false",
+          Link: "https://www.3dxtech.com/product/max-g-petg/",
+          Crystallinity: "Amorphous",
+          PrintingTechnology: "FDM",
+        },
+        {
+          name: "PEEK",
+          heatDeflectionTemp: 182,
+          tensileStrength: 100,
+          tensileModulus: 3.72,
+          maxPricePerKg: 588,
+          chemicalResistance: "very good",
+          bedTemp: 140,
+          enclosureTemp: 90,
+          hotendTemp: 400,
+          easeOfPrinting: "very hard",
+          otherInfo: "if you can use PEKK instead of PEEK, use PEKK",
+          UL94V0: "yes",
+          Flexible: "false",
+          Link: "https://www.3dxtech.com/product/thermax-peek/",
+          Crystallinity: "Semicrystalline",
+          PrintingTechnology: "FDM",
+        },
+        {
+          name: "PEKK A",
+          heatDeflectionTemp: 150,
+          tensileStrength: 105,
+          tensileModulus: 2.75,
+          maxPricePerKg: 695,
+          chemicalResistance: "very good",
+          bedTemp: 120,
+          enclosureTemp: 90,
+          hotendTemp: 385,
+          easeOfPrinting: "moderate",
+          otherInfo:
+            "Amorphous PEKK, easiest high temp material to print (60-40 copolymer)",
+          UL94V0: "yes",
+          Flexible: "false",
+          Link: "https://www.3dxtech.com/product/thermax-pekk-a/",
+          Crystallinity: "Amorphous",
+          PrintingTechnology: "FDM",
+        },
+        {
+          name: "PSU",
+          heatDeflectionTemp: 172,
+          tensileStrength: 52,
+          tensileModulus: 2.1,
+          maxPricePerKg: 155,
+          chemicalResistance: "very good",
+          bedTemp: 140,
+          enclosureTemp: 90,
+          hotendTemp: 370,
+          easeOfPrinting: "hard",
+          otherInfo: "pretty good mechanical, chemical, and thermal resistance",
+          UL94V0: "yes",
+          Flexible: "false",
+          Link: "https://www.3dxtech.com/product/thermax-psu/",
+          Crystallinity: "Amorphous",
+          PrintingTechnology: "FDM",
+        },
+        {
+          name: "PPS",
+          heatDeflectionTemp: 90,
+          tensileStrength: 50,
+          tensileModulus: 2.65,
+          maxPricePerKg: 200,
+          chemicalResistance: "very good",
+          bedTemp: 110,
+          enclosureTemp: 70,
+          hotendTemp: 310,
+          easeOfPrinting: "moderate",
+          otherInfo: "insoluble in any solvent under 200c",
+          UL94V0: "yes",
+          Flexible: "false",
+          Link: "https://www.printedsolid.com/products/3dxtech-thermax-pps-1-75mm-500g-natural",
+          Crystallinity: "Semicrystalline",
+          PrintingTechnology: "FDM",
+        },
+        {
+          name: "PPSU",
+          heatDeflectionTemp: 190,
+          tensileStrength: 55,
+          tensileModulus: 2.31,
+          maxPricePerKg: 250,
+          chemicalResistance: "very good",
+          bedTemp: 140,
+          enclosureTemp: 90,
+          hotendTemp: 390,
+          easeOfPrinting: "hard",
+          otherInfo: "a better but harder to print PSU",
+          UL94V0: "yes",
+          Flexible: "false",
+          Link: "https://www.3dxtech.com/product/thermax-ppsu/",
+          Crystallinity: "Amorphous",
+          PrintingTechnology: "FDM",
+        },
+        {
+          name: "TPI",
+          heatDeflectionTemp: 237,
+          tensileStrength: 74,
+          tensileModulus: 2.95,
+          maxPricePerKg: 390,
+          chemicalResistance: "very good",
+          bedTemp: 180,
+          enclosureTemp: 220,
+          hotendTemp: 450,
+          easeOfPrinting: "very hard",
+          otherInfo: "very few printers can actually print this",
+          UL94V0: "yes",
+          Flexible: "false",
+          Link: "https://www.3dxtech.com/product/thermax-tpi-made-using-extem/",
+          Crystallinity: "Amorphous",
+          PrintingTechnology: "FDM",
+        },
+        {
+          name: "ULTEM 1010",
+          heatDeflectionTemp: 207,
+          tensileStrength: 95,
+          tensileModulus: 2.3,
+          maxPricePerKg: 278,
+          chemicalResistance: "very good",
+          bedTemp: 140,
+          enclosureTemp: 90,
+          hotendTemp: 410,
+          easeOfPrinting: "hard",
+          otherInfo: "also known as PEI",
+          UL94V0: "yes",
+          Flexible: "false",
+          Link: "https://www.prusa3d.com/product/prusament-pei-1010-natural-500-g",
+          Crystallinity: "Amorphous",
+          PrintingTechnology: "FDM",
+        },
+        {
+          name: "ULTEM 9085",
+          heatDeflectionTemp: 158,
+          tensileStrength: 54,
+          tensileModulus: 2.05,
+          maxPricePerKg: 220,
+          chemicalResistance: "good",
+          bedTemp: 120,
+          enclosureTemp: 90,
+          hotendTemp: 375,
+          easeOfPrinting: "hard",
+          otherInfo: "ULTEM 1010 + PC, so less rigid",
+          UL94V0: "yes",
+          Flexible: "false",
+          Link: "https://www.3dxtech.com/product/thermax-pei-using-ultem-9085/",
+          Crystallinity: "Amorphous",
+          PrintingTechnology: "FDM",
+        },
+        {
+          name: "PVDF",
+          heatDeflectionTemp: 158,
+          tensileStrength: 51,
+          tensileModulus: 2.45,
+          maxPricePerKg: 253,
+          chemicalResistance: "very good",
+          bedTemp: 90,
+          enclosureTemp: 22,
+          hotendTemp: 260,
+          easeOfPrinting: "hard",
+          otherInfo: "fumes are very bad",
+          UL94V0: "yes",
+          Flexible: "false",
+          Link: "https://www.3dxtech.com/product/fluorx-pvdf/",
+          Crystallinity: "Semicrystalline",
+          PrintingTechnology: "FDM",
+        },
+        {
+          name: "PES",
+          heatDeflectionTemp: 205,
+          tensileStrength: 56,
+          tensileModulus: 2.6,
+          maxPricePerKg: 190,
+          chemicalResistance: "very good",
+          bedTemp: 140,
+          enclosureTemp: 90,
+          hotendTemp: 380,
+          easeOfPrinting: "hard",
+          otherInfo: "has very strong thermal properties",
+          UL94V0: "yes",
+          Flexible: "false",
+          Link: "https://www.3dxtech.com/product/thermax-pes/",
+          Crystallinity: "Amorphous",
+          PrintingTechnology: "FDM",
+        },
+        {
+          name: "ASA",
+          heatDeflectionTemp: 95,
+          tensileStrength: 42,
+          tensileModulus: 2.01,
+          maxPricePerKg: 30,
+          chemicalResistance: "fair",
+          bedTemp: 100,
+          enclosureTemp: 60,
+          hotendTemp: 240,
+          easeOfPrinting: "Moderate",
+          otherInfo: "a better ABS",
+          UL94V0: "no",
+          Flexible: "false",
+          Link: "https://www.3dxtech.com/product/3dxmax-asa/",
+          Crystallinity: "Amorphous",
+          PrintingTechnology: "FDM",
+        },
+        {
+          name: "PP",
+          heatDeflectionTemp: 139,
+          tensileStrength: 38,
+          tensileModulus: 1.65,
+          maxPricePerKg: 30,
+          chemicalResistance: "very good",
+          bedTemp: 60,
+          enclosureTemp: 22,
+          hotendTemp: 230,
+          easeOfPrinting: "Moderate",
+          otherInfo: "often used for living hinges",
+          UL94V0: "no",
+          Flexible: "true",
+          Link: "https://fiberlogy.com/en/fiberlogy-filaments/pp/",
+          Crystallinity: "Semicrystalline",
+          PrintingTechnology: "FDM",
+        },
+        {
+          name: "CF PEEK-10",
+          heatDeflectionTemp: 265,
+          tensileStrength: 105,
+          tensileModulus: 8.1,
+          maxPricePerKg: 595,
+          chemicalResistance: "very good",
+          bedTemp: 130,
+          enclosureTemp: 90,
+          hotendTemp: 400,
+          easeOfPrinting: "hard",
+          otherInfo: "makes PEEK easier to print",
+          UL94V0: "yes",
+          Flexible: "false",
+          Link: "https://www.3dxtech.com/product/carbonx-peek-cf10/",
+          Crystallinity: "Semicrystalline",
+          PrintingTechnology: "FDM",
+        },
+        {
+          name: "CF PEEK-20",
+          heatDeflectionTemp: 320,
+          tensileStrength: 126,
+          tensileModulus: 10.1,
+          maxPricePerKg: 750,
+          chemicalResistance: "very good",
+          bedTemp: 130,
+          enclosureTemp: 90,
+          hotendTemp: 400,
+          easeOfPrinting: "hard",
+          otherInfo: "makes PEEK easier to print",
+          UL94V0: "yes",
+          Flexible: "false",
+          Link: "https://www.3dxtech.com/product/carbonx-peek-cf20/",
+          Crystallinity: "Semicrystalline",
+          PrintingTechnology: "FDM",
+        },
+        {
+          name: "CF PEKK",
+          heatDeflectionTemp: 270,
+          tensileStrength: 105,
+          tensileModulus: 8.21,
+          maxPricePerKg: 333,
+          chemicalResistance: "very good",
+          bedTemp: 120,
+          enclosureTemp: 70,
+          hotendTemp: 385,
+          easeOfPrinting: "moderate",
+          otherInfo: "use this instead of CF PEEK if you can",
+          UL94V0: "yes",
+          Flexible: "false",
+          Link: "https://www.3dxtech.com/product/carbonx-pekk-a-cf15/",
+          Crystallinity: "Semicrystalline",
+          PrintingTechnology: "FDM",
+        },
+        {
+          name: "CF PEI 1010",
+          heatDeflectionTemp: 205,
+          tensileStrength: 145,
+          tensileModulus: 7.7,
+          maxPricePerKg: 450,
+          chemicalResistance: "very good",
+          bedTemp: 130,
+          enclosureTemp: 90,
+          hotendTemp: 390,
+          easeOfPrinting: "hard",
+          otherInfo:
+            "good at pretty much everything, but hard to print and expensive",
+          UL94V0: "yes",
+          Flexible: "false",
+          Link: "https://visionminer.com/products/carbonx-cf-pei",
+          Crystallinity: "Amorphous",
+          PrintingTechnology: "FDM",
+        },
+        {
+          name: "CF PEI 9085",
+          heatDeflectionTemp: 165,
+          tensileStrength: 93,
+          tensileModulus: 8.6,
+          maxPricePerKg: 395,
+          chemicalResistance: "good",
+          bedTemp: 130,
+          enclosureTemp: 90,
+          hotendTemp: 385,
+          easeOfPrinting: "hard",
+          otherInfo:
+            "a worse version of CF PEI 1010, but useful if you need FST",
+          UL94V0: "yes",
+          Flexible: "false",
+          Link: "https://www.3dxtech.com/product/carbonx-peicf15-made-using-ultem-9085/",
+          Crystallinity: "Amorphous",
+          PrintingTechnology: "FDM",
+        },
+        {
+          name: "CF PPS",
+          heatDeflectionTemp: 220,
+          tensileStrength: 63,
+          tensileModulus: 7.46,
+          maxPricePerKg: 180,
+          chemicalResistance: "very good",
+          bedTemp: 110,
+          enclosureTemp: 70,
+          hotendTemp: 310,
+          easeOfPrinting: "moderate",
+          otherInfo: "makes PPS significantly more rigid",
+          UL94V0: "yes",
+          Flexible: "false",
+          Link: "https://shop.essentium.com/products/essentium-pps-cf-1-75mm",
+          Crystallinity: "Semicrystalline",
+          PrintingTechnology: "FDM",
+        },
+        {
+          name: "HIPS",
+          heatDeflectionTemp: 80,
+          tensileStrength: 40,
+          tensileModulus: 1.35,
+          maxPricePerKg: 32,
+          chemicalResistance: "fair",
+          bedTemp: 100,
+          enclosureTemp: 22,
+          hotendTemp: 240,
+          easeOfPrinting: "Moderate",
+          otherInfo: "sometimes used as dissolvable supports",
+          UL94V0: "no",
+          Flexible: "false",
+          Link: "https://www.3dxtech.com/product/3dxmax-hips/",
+          Crystallinity: "Amorphous",
+          PrintingTechnology: "FDM",
+        },
+        {
+          name: "CF PP",
+          heatDeflectionTemp: 124,
+          tensileStrength: 62,
+          tensileModulus: 6.15,
+          maxPricePerKg: 60,
+          chemicalResistance: "very good",
+          bedTemp: 60,
+          enclosureTemp: 22,
+          hotendTemp: 240,
+          easeOfPrinting: "Moderate",
+          otherInfo: "makes Polypropylene significantly more rigid",
+          UL94V0: "no",
+          Flexible: "false",
+          Link: "https://www.3dxtech.com/product/carbonx-pp-cf-polypropylene/",
+          Crystallinity: "Semicrystalline",
+          PrintingTechnology: "FDM",
+        },
+        {
+          name: "CF PC",
+          heatDeflectionTemp: 135,
+          tensileStrength: 70,
+          tensileModulus: 6.2,
+          maxPricePerKg: 114,
+          chemicalResistance: "good",
+          bedTemp: 110,
+          enclosureTemp: 70,
+          hotendTemp: 280,
+          easeOfPrinting: "Moderate",
+          otherInfo: "very good all around engineering material",
+          UL94V0: "no",
+          Flexible: "false",
+          Link: "https://www.3dxtech.com/product/carbonx-pc-cf/",
+          Crystallinity: "Amorphous",
+          PrintingTechnology: "FDM",
+        },
+        {
+          name: "PC",
+          heatDeflectionTemp: 135,
+          tensileStrength: 62,
+          tensileModulus: 2.41,
+          maxPricePerKg: 90,
+          chemicalResistance: "good",
+          bedTemp: 110,
+          enclosureTemp: 70,
+          hotendTemp: 280,
+          easeOfPrinting: "hard",
+          otherInfo: "pure PC can be quite hard to print on consumer machines",
+          UL94V0: "no",
+          Flexible: "false",
+          Link: "https://www.3dxtech.com/product/3dxmax-pc-polycarbonate/",
+          Crystallinity: "Amorphous",
+          PrintingTechnology: "FDM",
+        },
+        {
+          name: "PC Blend",
+          heatDeflectionTemp: 112,
+          tensileStrength: 58,
+          tensileModulus: 2.18,
+          maxPricePerKg: 55,
+          chemicalResistance: "good",
+          bedTemp: 90,
+          enclosureTemp: 22,
+          hotendTemp: 260,
+          easeOfPrinting: "Moderate",
+          otherInfo:
+            "PC, blended with other polymers to make it easier to print",
+          UL94V0: "no",
+          Flexible: "false",
+          Link: "https://www.3dxtech.com/product/ezpc/",
+          Crystallinity: "Amorphous",
+          PrintingTechnology: "FDM",
+        },
+        {
+          name: "PVA",
+          heatDeflectionTemp: 53,
+          tensileStrength: 22,
+          tensileModulus: 1.73,
+          maxPricePerKg: 75,
+          chemicalResistance: "not good",
+          bedTemp: 60,
+          enclosureTemp: 22,
+          hotendTemp: 230,
+          easeOfPrinting: "easy",
+          otherInfo: "used for water dissolvable supports",
+          UL94V0: "no",
+          Flexible: "false",
+          Link: "https://www.3dxtech.com/product/aquatek-pva-water-soluble-support/",
+          Crystallinity: "Semicrystalline",
+          PrintingTechnology: "FDM",
+        },
+        {
+          name: "PPE/PS",
+          heatDeflectionTemp: 112,
+          tensileStrength: 67,
+          tensileModulus: 2.25,
+          maxPricePerKg: 104,
+          chemicalResistance: "Good",
+          bedTemp: 90,
+          enclosureTemp: 50,
+          hotendTemp: 310,
+          easeOfPrinting: "Moderate",
+          otherInfo: "a copolymer of polyphenylene ether and polystyrene",
+          UL94V0: "yes",
+          Flexible: "false",
+          Link: "https://www.3dxtech.com/product/thermax-ppe-ps/",
+          Crystallinity: "Amorphous",
+          PrintingTechnology: "FDM",
+        },
+        {
+          name: "Nylon/PA",
+          heatDeflectionTemp: 82,
+          tensileStrength: 49,
+          tensileModulus: 2.18,
+          maxPricePerKg: 40,
+          chemicalResistance: "Good",
+          bedTemp: 90,
+          enclosureTemp: 50,
+          hotendTemp: 260,
+          easeOfPrinting: "Moderate",
+          otherInfo: "somewhat flexible, can be made almost indestructable",
+          UL94V0: "no",
+          Flexible: "false",
+          Link: "https://shop.essentium.com/products/essentium-pa-nylon-1-75mm",
+          Crystallinity: "Semicrystalline",
+          PrintingTechnology: "FDM",
+        },
+        {
+          name: "CF PET",
+          heatDeflectionTemp: 205,
+          tensileStrength: 71,
+          tensileModulus: 9.38,
+          maxPricePerKg: 100,
+          chemicalResistance: "Good",
+          bedTemp: 80,
+          enclosureTemp: 50,
+          hotendTemp: 270,
+          easeOfPrinting: "Moderate",
+          otherInfo: "semi-crystalline version of PETG, with CF",
+          UL94V0: "no",
+          Flexible: "false",
+          Link: "https://shop.essentium.com/products/essentium-xion-pro-1-75mm",
+          Crystallinity: "Semicrystalline",
+          PrintingTechnology: "FDM",
+        },
+        {
+          name: "PEKK SC",
+          heatDeflectionTemp: 182,
+          tensileStrength: 105,
+          tensileModulus: 3.2,
+          maxPricePerKg: 666,
+          chemicalResistance: "very good",
+          bedTemp: 130,
+          enclosureTemp: 90,
+          hotendTemp: 390,
+          easeOfPrinting: "Moderate",
+          otherInfo: "semi-crystalline PEKK (70-30 copolymer)",
+          UL94V0: "yes",
+          Flexible: "false",
+          Link: "https://www.3d4makers.com/products/luvocom-3f-pekk-50082-filament",
+          Crystallinity: "Semicrystalline",
+          PrintingTechnology: "FDM",
+        },
+        {
+          name: "Essentium HTN",
+          heatDeflectionTemp: 110,
+          tensileStrength: 77,
+          tensileModulus: 3.18,
+          maxPricePerKg: 127,
+          chemicalResistance: "good",
+          bedTemp: 80,
+          enclosureTemp: 40,
+          hotendTemp: 285,
+          easeOfPrinting: "Moderate",
+          otherInfo: "also known as High temperature Nylon",
+          UL94V0: "no",
+          Flexible: "false",
+          Link: "https://shop.essentium.com/products/essentium-htn-1-75mm",
+          Crystallinity: "Semicrystalline",
+          PrintingTechnology: "FDM",
+        },
+        {
+          name: "Essentium HTN CF25",
+          heatDeflectionTemp: 219,
+          tensileStrength: 148,
+          tensileModulus: 16.0,
+          maxPricePerKg: 233,
+          chemicalResistance: "good",
+          bedTemp: 80,
+          enclosureTemp: 40,
+          hotendTemp: 285,
+          easeOfPrinting: "Moderate",
+          otherInfo:
+            "one of if not the strongest 3d printing materials, but a bit brittle",
+          UL94V0: "no",
+          Flexible: "false",
+          Link: "https://shop.essentium.com/products/essentium-htn-cf25-1-75mm",
+          Crystallinity: "Semicrystalline",
+          PrintingTechnology: "FDM",
+        },
+        {
+          name: "CF PPA",
+          heatDeflectionTemp: 240,
+          tensileStrength: 87,
+          tensileModulus: 8.2,
+          maxPricePerKg: 233,
+          chemicalResistance: "good",
+          bedTemp: 130,
+          enclosureTemp: 40,
+          hotendTemp: 290,
+          easeOfPrinting: "Moderate",
+          otherInfo: "very good all around material",
+          UL94V0: "no",
+          Flexible: "false",
+          Link: "https://www.3dxtech.com/products/carbonx-htn-cf-1",
+          Crystallinity: "Semicrystalline",
+          PrintingTechnology: "FDM",
+        },
+        {
+          name: "Ultem 1000",
+          heatDeflectionTemp: 208,
+          tensileStrength: 105,
+          tensileModulus: 2.5,
+          maxPricePerKg: 210,
+          chemicalResistance: "very good",
+          bedTemp: 140,
+          enclosureTemp: 90,
+          hotendTemp: 380,
+          easeOfPrinting: "hard",
+          otherInfo:
+            "not sure what the difference between this and ULTEM 1010 is",
+          UL94V0: "yes",
+          Flexible: "false",
+          Link: "https://www.3d4makers.com/products/pei-ultem-1000-filament",
+          Crystallinity: "Amorphous",
+          PrintingTechnology: "FDM",
+        },
+        {
+          name: "POM/Delrin",
+          heatDeflectionTemp: 155,
+          tensileStrength: 63,
+          tensileModulus: 3.0,
+          maxPricePerKg: 27,
+          chemicalResistance: "good",
+          bedTemp: 100,
+          enclosureTemp: 70,
+          hotendTemp: 220,
+          easeOfPrinting: "very hard",
+          otherInfo: "this really should not be printed",
+          UL94V0: "no",
+          Flexible: "false",
+          Link: "https://gizmodorks.com/acetal-3d-printer-filament/",
+          Crystallinity: "Semicrystalline",
+          PrintingTechnology: "FDM",
+        },
+        {
+          name: "Essentium Duratem",
+          heatDeflectionTemp: 145,
+          tensileStrength: 40,
+          tensileModulus: 0.465,
+          maxPricePerKg: 233,
+          chemicalResistance: "very good",
+          bedTemp: 140,
+          enclosureTemp: 90,
+          hotendTemp: 370,
+          easeOfPrinting: "hard",
+          otherInfo: "the only flexible high temp material",
+          UL94V0: "yes",
+          Flexible: "true",
+          Link: "https://shop.essentium.com/products/essentium-duratem-1-75mm",
+          Crystallinity: "Amorphous",
+          PrintingTechnology: "FDM",
+        },
+        {
+          name: "Essentium Altitude",
+          heatDeflectionTemp: 120,
+          tensileStrength: 58,
+          tensileModulus: 3.74,
+          maxPricePerKg: 110,
+          chemicalResistance: "good",
+          bedTemp: 80,
+          enclosureTemp: 50,
+          hotendTemp: 270,
+          easeOfPrinting: "Moderate",
+          otherInfo:
+            "designed for use in planes and other aerospace applications",
+          UL94V0: "yes",
+          Flexible: "false",
+          Link: "https://shop.essentium.com/products/essentium-altitude-1-75mm",
+          Crystallinity: "Amorphous",
+          PrintingTechnology: "FDM",
+        },
+        {
+          name: "GF ULTEM 1010",
+          heatDeflectionTemp: 212,
+          tensileStrength: 145,
+          tensileModulus: 8.79,
+          maxPricePerKg: 350,
+          chemicalResistance: "very good",
+          bedTemp: 130,
+          enclosureTemp: 90,
+          hotendTemp: 390,
+          easeOfPrinting: "hard",
+          otherInfo: "one of the strongest printable polymers",
+          UL94V0: "yes",
+          Flexible: "false",
+          Link: "https://www.3dxtech.com/product/fibrex-pei-gf30-using-ultem/",
+          Crystallinity: "Amorphous",
+          PrintingTechnology: "FDM",
+        },
+        {
+          name: "PI",
+          heatDeflectionTemp: 175,
+          tensileStrength: 89,
+          tensileModulus: 2.73,
+          maxPricePerKg: 1330,
+          chemicalResistance: "very good",
+          bedTemp: 120,
+          enclosureTemp: 90,
+          hotendTemp: 400,
+          easeOfPrinting: "very hard",
+          otherInfo: "3D-printable Kapton tape material",
+          UL94V0: "yes",
+          Flexible: "false",
+          Link: "https://www.3d4makers.com/products/pi-filament-z2",
+          Crystallinity: "Amorphous",
+          PrintingTechnology: "FDM",
+        },
+        {
+          name: "CF PA6",
+          heatDeflectionTemp: 147,
+          tensileStrength: 63,
+          tensileModulus: 3.8,
+          maxPricePerKg: 80,
+          chemicalResistance: "good",
+          bedTemp: 70,
+          enclosureTemp: 22,
+          hotendTemp: 260,
+          easeOfPrinting: "Moderate",
+          otherInfo:
+            "a very good generic strong material, more hydroscopic than PA12",
+          UL94V0: "no",
+          Flexible: "false",
+          Link: "https://www.3dxtech.com/product/carbonx-pa6-cf/",
+          Crystallinity: "Semicrystalline",
+          PrintingTechnology: "FDM",
+        },
+        {
+          name: "GF PA6",
+          heatDeflectionTemp: 186,
+          tensileStrength: 63,
+          tensileModulus: 4.261,
+          maxPricePerKg: 69,
+          chemicalResistance: "good",
+          bedTemp: 70,
+          enclosureTemp: 22,
+          hotendTemp: 260,
+          easeOfPrinting: "Moderate",
+          otherInfo:
+            "a very good generic strong material, more hydroscopic than PA12",
+          UL94V0: "no",
+          Flexible: "false",
+          Link: "https://www.3dxtech.com/products/fibrex-nylon-6-gf-1",
+          Crystallinity: "Semicrystalline",
+          PrintingTechnology: "FDM",
+        },
+        {
+          name: "GF PA12",
+          heatDeflectionTemp: 150,
+          tensileStrength: 82,
+          tensileModulus: 7.8,
+          maxPricePerKg: 130,
+          chemicalResistance: "good",
+          bedTemp: 110,
+          enclosureTemp: 22,
+          hotendTemp: 285,
+          easeOfPrinting: "Moderate",
+          otherInfo:
+            "a very good generic strong material, less hydroscopic than PA6",
+          UL94V0: "no",
+          Flexible: "false",
+          Link: "https://www.3dxtech.com/products/fibrex-nylon-12-gf30-1?variant=43809001078837",
+          Crystallinity: "Semicrystalline",
+          PrintingTechnology: "FDM",
+        },
+        {
+          name: "CF PA12",
+          heatDeflectionTemp: 150,
+          tensileStrength: 72,
+          tensileModulus: 8.0,
+          maxPricePerKg: 174,
+          chemicalResistance: "good",
+          bedTemp: 110,
+          enclosureTemp: 22,
+          hotendTemp: 285,
+          easeOfPrinting: "Moderate",
+          otherInfo:
+            "a very good generic strong material, less hydroscopic than PA6",
+          UL94V0: "no",
+          Flexible: "false",
+          Link: "https://www.3dxtech.com/products/carbonx-nylon-12-cf-1?variant=43779588915253",
+          Crystallinity: "Semicrystalline",
+          PrintingTechnology: "FDM",
+        },
+        {
+          name: "CF PA11",
+          heatDeflectionTemp: 192,
+          tensileStrength: 42,
+          tensileModulus: 2.5,
+          maxPricePerKg: 125,
+          chemicalResistance: "good",
+          bedTemp: 110,
+          enclosureTemp: 22,
+          hotendTemp: 285,
+          easeOfPrinting: "Moderate",
+          otherInfo:
+            "a decently good generic strong material, less hydroscopic than PA6",
+          UL94V0: "no",
+          Flexible: "false",
+          Link: "https://www.prusa3d.com/product/prusament-pa11-carbon-fiber-black-800g-4/",
+          Crystallinity: "Semicrystalline",
+          PrintingTechnology: "FDM",
+        },
+        {
+          name: "Bambu CF PPA",
+          heatDeflectionTemp: 227,
+          tensileStrength: 168,
+          tensileModulus: 9.86,
+          maxPricePerKg: 200,
+          chemicalResistance: "good",
+          bedTemp: 100,
+          enclosureTemp: 50,
+          hotendTemp: 280,
+          easeOfPrinting: "Moderate",
+          otherInfo: "an impresively strong and rigid high temp nylon",
+          UL94V0: "no",
+          Flexible: "false",
+          Link: "https://store.bambulab.com/products/ppa-cf",
+          Crystallinity: "Semicrystalline",
+          PrintingTechnology: "FDM",
+        },
+        {
+          name: "Bambu PAHT CF",
+          heatDeflectionTemp: 194,
+          tensileStrength: 92,
+          tensileModulus: 3.86,
+          maxPricePerKg: 95,
+          chemicalResistance: "good",
+          bedTemp: 80,
+          enclosureTemp: 45,
+          hotendTemp: 260,
+          easeOfPrinting: "Moderate",
+          otherInfo: "a very strong and rigid high temp nylon",
+          UL94V0: "no",
+          Flexible: "false",
+          Link: "https://us.store.bambulab.com/products/paht-cf?variant=41009450483848",
+          Crystallinity: "Semicrystalline",
+          PrintingTechnology: "FDM",
+        },
+        {
+          name: "PCTG",
+          heatDeflectionTemp: 76,
+          tensileStrength: 45,
+          tensileModulus: 1.81,
+          maxPricePerKg: 50,
+          chemicalResistance: "fair",
+          bedTemp: 70,
+          enclosureTemp: 22,
+          hotendTemp: 240,
+          easeOfPrinting: "easy",
+          otherInfo: "can create parts with almost isotropic strength",
+          UL94V0: "no",
+          Flexible: "false",
+          Link: "https://shop.essentium.com/collections/1-75mm-filament-all/products/essentium-pctg-1-75mm",
+          Crystallinity: "Amorphous",
+          PrintingTechnology: "FDM",
+        },
+        {
+          name: "CF PLA",
+          heatDeflectionTemp: 91,
+          tensileStrength: 48,
+          tensileModulus: 4.95,
+          maxPricePerKg: 64,
+          chemicalResistance: "fair",
+          bedTemp: 60,
+          enclosureTemp: 22,
+          hotendTemp: 210,
+          easeOfPrinting: "easy",
+          otherInfo: "kind of a gimmick",
+          UL94V0: "no",
+          Flexible: "false",
+          Link: "https://www.3dxtech.com/product/carbonx-pla-cf/",
+          Crystallinity: "Semicrystalline",
+          PrintingTechnology: "FDM",
+        },
+        {
+          name: "CF ABS",
+          heatDeflectionTemp: 76,
+          tensileStrength: 35,
+          tensileModulus: 5.21,
+          maxPricePerKg: 64,
+          chemicalResistance: "fair",
+          bedTemp: 100,
+          enclosureTemp: 50,
+          hotendTemp: 240,
+          easeOfPrinting: "Moderate",
+          otherInfo: "decent engineering material",
+          UL94V0: "no",
+          Flexible: "false",
+          Link: "https://www.3dxtech.com/product/carbonx-abs-cf/",
+          Crystallinity: "Amorphous",
+          PrintingTechnology: "FDM",
+        },
+        {
+          name: "GF ABS",
+          heatDeflectionTemp: 99,
+          tensileStrength: 36,
+          tensileModulus: 3.16,
+          maxPricePerKg: 30,
+          chemicalResistance: "fair",
+          bedTemp: 80,
+          enclosureTemp: 45,
+          hotendTemp: 240,
+          easeOfPrinting: "Moderate",
+          otherInfo: "decent engineering material",
+          UL94V0: "no",
+          Flexible: "false",
+          Link: "https://us.store.bambulab.com/products/abs-gf",
+          Crystallinity: "Amorphous",
+          PrintingTechnology: "FDM",
+        },
+        {
+          name: "CF ASA",
+          heatDeflectionTemp: 110,
+          tensileStrength: 34,
+          tensileModulus: 4.2,
+          maxPricePerKg: 37,
+          chemicalResistance: "fair",
+          bedTemp: 80,
+          enclosureTemp: 45,
+          hotendTemp: 250,
+          easeOfPrinting: "Moderate",
+          otherInfo: "decent engineering material, good UV resistance",
+          UL94V0: "no",
+          Flexible: "false",
+          Link: "https://us.store.bambulab.com/products/asa-cf",
+          Crystallinity: "Amorphous",
+          PrintingTechnology: "FDM",
+        },
+        {
+          name: "CF PETG",
+          heatDeflectionTemp: 77,
+          tensileStrength: 56,
+          tensileModulus: 5.23,
+          maxPricePerKg: 64,
+          chemicalResistance: "fair",
+          bedTemp: 70,
+          enclosureTemp: 22,
+          hotendTemp: 240,
+          easeOfPrinting: "easy",
+          otherInfo: "good for parts that need to be somewhat rigid",
+          UL94V0: "no",
+          Flexible: "false",
+          Link: "https://www.3dxtech.com/product/carbonx-petg-cf/",
+          Crystallinity: "Amorphous",
+          PrintingTechnology: "FDM",
+        },
+        {
+          name: "TPU",
+          heatDeflectionTemp: 49,
+          tensileStrength: 55,
+          tensileModulus: 0.0078,
+          maxPricePerKg: 30,
+          chemicalResistance: "good",
+          bedTemp: 40,
+          enclosureTemp: 22,
+          hotendTemp: 230,
+          easeOfPrinting: "moderate",
+          otherInfo: "most common flexible material",
+          UL94V0: "no",
+          Flexible: "true",
+          Link: "https://www.3dxtech.com/product/3dxflex-tpu-95a/",
+          Crystallinity: "Amorphous",
+          PrintingTechnology: "FDM",
+        },
+        {
+          name: "PEBA",
+          heatDeflectionTemp: 66,
+          tensileStrength: 66,
+          tensileModulus: 0.0328,
+          maxPricePerKg: 120,
+          chemicalResistance: "good",
+          bedTemp: 70,
+          enclosureTemp: 22,
+          hotendTemp: 210,
+          easeOfPrinting: "moderate",
+          otherInfo: "another flexible material",
+          UL94V0: "no",
+          Flexible: "true",
+          Link: "https://shop3duniverse.com/products/kimya-peba-s-1-75mm-500g-transluscent#v45605424365888",
+          Crystallinity: "Semicrystalline",
+          PrintingTechnology: "FDM",
+        },
+        {
+          name: "LW-PLA",
+          heatDeflectionTemp: 50,
+          tensileStrength: 35,
+          tensileModulus: 3.333,
+          maxPricePerKg: 35,
+          chemicalResistance: "fair",
+          bedTemp: 40,
+          enclosureTemp: 22,
+          hotendTemp: 230,
+          easeOfPrinting: "easy",
+          otherInfo: "often used to make RC planes",
+          UL94V0: "no",
+          Flexible: "false",
+          Link: "https://colorfabb.us/lw-pla-natural",
+          Crystallinity: "Semicrystalline",
+          PrintingTechnology: "FDM",
+        },
+        {
+          name: "LW-TPU",
+          heatDeflectionTemp: 49,
+          tensileStrength: 24,
+          tensileModulus: 0.05,
+          maxPricePerKg: 68,
+          chemicalResistance: "fair",
+          bedTemp: 40,
+          enclosureTemp: 22,
+          hotendTemp: 230,
+          easeOfPrinting: "easy",
+          otherInfo: "by changing the temperature",
+          UL94V0: "no",
+          Flexible: "true",
+          Link: "https://colorfabb.us/varioshore-tpu-black",
+          Crystallinity: "Amorphous",
+          PrintingTechnology: "FDM",
+        },
+        {
+          name: "SEBS",
+          heatDeflectionTemp: 35,
+          tensileStrength: 11,
+          tensileModulus: 0.083,
+          maxPricePerKg: 60,
+          chemicalResistance: "fair",
+          bedTemp: 50,
+          enclosureTemp: 22,
+          hotendTemp: 250,
+          easeOfPrinting: "easy",
+          otherInfo: "an alternative to TPU, also a TPE",
+          UL94V0: "no",
+          Flexible: "true",
+          Link: "https://recreus.com/gb/filaments/20-filaflex-sebs.html",
+          Crystallinity: "Semicrystalline",
+          PrintingTechnology: "FDM",
+        },
+        {
+          name: "PCL",
+          heatDeflectionTemp: 57,
+          tensileStrength: 45,
+          tensileModulus: 0.35,
+          maxPricePerKg: 156,
+          chemicalResistance: "not good",
+          bedTemp: 30,
+          enclosureTemp: 22,
+          hotendTemp: 130,
+          easeOfPrinting: "moderate",
+          otherInfo:
+            "often used in the medical field for implants because of its biocompatibility",
+          UL94V0: "no",
+          Flexible: "false",
+          Link: "https://www.3d4makers.com/products/facilan-pcl-100-filament",
+          Crystallinity: "Semicrystalline",
+          PrintingTechnology: "FDM",
+        },
+        {
+          name: "PET",
+          heatDeflectionTemp: 63,
+          tensileStrength: 33,
+          tensileModulus: 1.933,
+          maxPricePerKg: 37,
+          chemicalResistance: "good",
+          bedTemp: 70,
+          enclosureTemp: 22,
+          hotendTemp: 210,
+          easeOfPrinting: "easy",
+          otherInfo:
+            "same as PETG, but a little harder to print, and semicrystalline",
+          UL94V0: "no",
+          Flexible: "false",
+          Link: "https://www.matterhackers.com/store/c/taulman-t-glase",
+          Crystallinity: "Semicrystalline",
+          PrintingTechnology: "FDM",
+        },
+        {
+          name: "PVB",
+          heatDeflectionTemp: 63,
+          tensileStrength: 50,
+          tensileModulus: 1.7,
+          maxPricePerKg: 50,
+          chemicalResistance: "fair",
+          bedTemp: 75,
+          enclosureTemp: 22,
+          hotendTemp: 215,
+          easeOfPrinting: "easy",
+          otherInfo: "can be vapor smoothed using IPA",
+          UL94V0: "no",
+          Flexible: "false",
+          Link: "https://prusament.com/materials/prusament-pvb/",
+          Crystallinity: "Amorphous",
+          PrintingTechnology: "FDM",
+        },
+        {
+          name: "PMMA",
+          heatDeflectionTemp: 106,
+          tensileStrength: 46,
+          tensileModulus: 2.5,
+          maxPricePerKg: 50,
+          chemicalResistance: "good",
+          bedTemp: 100,
+          enclosureTemp: 22,
+          hotendTemp: 230,
+          easeOfPrinting: "moderate",
+          otherInfo: "very transparent",
+          UL94V0: "no",
+          Flexible: "false",
+          Link: "https://formfutura.com/c/filaments/pmma/",
+          Crystallinity: "Amorphous",
+          PrintingTechnology: "FDM",
+        },
+        {
+          name: "Tullomer LCP",
+          heatDeflectionTemp: 180,
+          tensileStrength: 250,
+          tensileModulus: 25,
+          maxPricePerKg: 500,
+          chemicalResistance: "very good",
+          bedTemp: 120,
+          enclosureTemp: 65,
+          hotendTemp: 300,
+          easeOfPrinting: "hard",
+          otherInfo:  "This is a liquid crystal polymer filament, and must be printed fast",
+          UL94V0: "yes",
+          Flexible: "false",
+          Link: "https://www.dynamism.com/material/material-brands/z-polymers/z-polymers-tullomer-1kg.html",
+          Crystallinity: "Crystalline",
+          PrintingTechnology: "FDM",
+        },
+        {
+          name: "Markforged Onyx",
+          heatDeflectionTemp: 145,
+          tensileStrength: 37,
+          tensileModulus: 2.4,
+          maxPricePerKg: 198,
+          chemicalResistance: "good",
+          bedTemp: 22,
+          enclosureTemp: 22,
+          hotendTemp: 285,
+          easeOfPrinting: "easy",
+          otherInfo: "kind of overpriced for what it is",
+          UL94V0: "no",
+          Flexible: "false",
+          Link: "",
+          Crystallinity: "Semicrystalline",
+          PrintingTechnology: "FDM",
+        },
+        {
+          name: "Markforged Nylon",
+          heatDeflectionTemp: 41,
+          tensileStrength: 36,
+          tensileModulus: 1.7,
+          maxPricePerKg: 193,
+          chemicalResistance: "good",
+          bedTemp: 22,
+          enclosureTemp: 22,
+          hotendTemp: 285,
+          easeOfPrinting: "easy",
+          otherInfo: "kind of overpriced for what it is",
+          UL94V0: "no",
+          Flexible: "false",
+          Link: "",
+          Crystallinity: "Semicrystalline",
+          PrintingTechnology: "FDM",
+        },
+        {
+          name: "BASF Ultrafuse 17-4 PH Stainless Steel",
+          heatDeflectionTemp: 316,
+          tensileStrength: 990,
+          tensileModulus: 191.0,
+          maxPricePerKg: 130,
+          chemicalResistance: "very good",
+          bedTemp: 100,
+          enclosureTemp: 40,
+          hotendTemp: 240,
+          easeOfPrinting: "moderate",
+          otherInfo:
+            "you get real stainless steel parts after sending your green parts to a debinding and sintering facility (also, steel is dense)",
+          UL94V0: "yes",
+          Flexible: "false",
+          Link: "https://www.matterhackers.com/store/l/basf-ultrafuse-17-4-ph-metal-3d-printing-filament/sk/M8H26VSM",
+          Crystallinity: "Crystalline",
+          PrintingTechnology: "FDM",
+        },
+        {
+          name: "Formlabs PA11 CF",
+          heatDeflectionTemp: 188,
+          tensileStrength: 69,
+          tensileModulus: 5.3,
+          maxPricePerKg: 167,
+          chemicalResistance: "good",
+          bedTemp: "N/A",
+          enclosureTemp: "N/A",
+          hotendTemp: "N/A",
+          easeOfPrinting: "easy",
+          otherInfo: "pretty good rigid engineering material",
+          UL94V0: "false",
+          Flexible: "false",
+          Link: "https://formlabs.com/store/materials/nylon-11-cf-powder/",
+          Crystallinity: "Semicrystalline",
+          PrintingTechnology: "SLS",
+        },
+
+        {
+          name: "Formlabs Rigid 10K resin",
+          heatDeflectionTemp: 163,
+          tensileStrength: 65,
+          tensileModulus: 10,
+          maxPricePerKg: 299,
+          chemicalResistance: "good",
+          bedTemp: "N/A",
+          enclosureTemp: "N/A",
+          hotendTemp: "N/A",
+          easeOfPrinting: "easy",
+          otherInfo: "pretty rigid engineering resin",
+          UL94V0: "false",
+          Flexible: "false",
+          Link: "https://formlabs.com/store/materials/rigid-10k-resin/",
+          Crystallinity: "Amorphous",
+          PrintingTechnology: "SLA",
+        },
+        {
+          name: "Formlabs Clear resin",
+          heatDeflectionTemp: 56,
+          tensileStrength: 51,
+          tensileModulus: 2.575,
+          maxPricePerKg: 79,
+          chemicalResistance: "good",
+          bedTemp: "N/A",
+          enclosureTemp: "N/A",
+          hotendTemp: "N/A",
+          easeOfPrinting: "easy",
+          otherInfo: "pretty good basic resin",
+          UL94V0: "false",
+          Flexible: "false",
+          Link: "https://formlabs.com/store/materials/clear-resin/",
+          Crystallinity: "Amorphous",
+          PrintingTechnology: "SLA",
+        },
+        {
+          name: "Formlabs PA12",
+          heatDeflectionTemp: 177,
+          tensileStrength: 47,
+          tensileModulus: 1.95,
+          maxPricePerKg: 110,
+          chemicalResistance: "good",
+          bedTemp: "N/A",
+          enclosureTemp: "N/A",
+          hotendTemp: "N/A",
+          easeOfPrinting: "easy",
+          otherInfo: "pretty good basic material",
+          UL94V0: "false",
+          Flexible: "false",
+          Link: "https://formlabs.com/store/materials/nylon-12-white-powder/",
+          Crystallinity: "Semicrystalline",
+          PrintingTechnology: "SLS",
+        },
+         {
+          name: "Formlabs High Temp Resin",
+          heatDeflectionTemp: 120,
+          tensileStrength: 58,
+          tensileModulus: 2.8,
+          maxPricePerKg: 199,
+          chemicalResistance: "good",
+          bedTemp: "N/A",
+          enclosureTemp: "N/A",
+          hotendTemp: "N/A",
+          easeOfPrinting: "easy",
+          otherInfo: "can have a HDT up to 238 if thermally cured",
+          UL94V0: "false",
+          Flexible: "false",
+          Link: "https://formlabs.com/store/materials/high-temp-resin/",
+          Crystallinity: "Amorphous",
+          PrintingTechnology: "SLA",
+        },
+         {
+          name: "Formlabs Durable Resin",
+          heatDeflectionTemp: 41,
+          tensileStrength: 28,
+          tensileModulus: 1,
+          maxPricePerKg: 149,
+          chemicalResistance: "good",
+          bedTemp: "N/A",
+          enclosureTemp: "N/A",
+          hotendTemp: "N/A",
+          easeOfPrinting: "easy",
+          otherInfo: "very good impact resistance",
+          UL94V0: "false",
+          Flexible: "false",
+          Link: "https://formlabs.com/store/materials/durable-resin/",
+          Crystallinity: "Amorphous",
+          PrintingTechnology: "SLA",
+        },
+        {
+          name: "Formlabs PA11 GF",
+          heatDeflectionTemp: 170,
+          tensileStrength: 38,
+          tensileModulus: 2.8,
+          maxPricePerKg: 108,
+          chemicalResistance: "good",
+          bedTemp: "N/A",
+          enclosureTemp: "N/A",
+          hotendTemp: "N/A",
+          easeOfPrinting: "easy",
+          otherInfo: "pretty good rigid engineering material",
+          UL94V0: "false",
+          Flexible: "false",
+          Link: "https://formlabs.com/store/materials/nylon-12-gf-powder/",
+          Crystallinity: "Semicrystalline",
+          PrintingTechnology: "SLS",
+        },
+        
+        
+        
+        
+        
+        
+        
+        
+      ];
+
+      function submitForm() {
+        const heatDeflectionTemp = parseFloat(
+          document.getElementById("heatDeflectionTemp").value
+        );
+        const tensileStrength = parseFloat(
+          document.getElementById("tensileStrength").value
+        );
+        const tensileModulus = parseFloat(
+          document.getElementById("tensileModulus").value
+        );
+        const maxPricePerKg = parseFloat(
+          document.getElementById("maxPricePerKg").value
+        );
+
+        const selectedTechnologies = Array.from(
+          document.querySelectorAll("input[name='technology']:checked")
+        ).map((checkbox) => checkbox.value);
+
+        const filteredMaterials = materials.filter(
+          (material) =>
+            material.heatDeflectionTemp >= heatDeflectionTemp &&
+            material.tensileStrength >= tensileStrength &&
+            material.tensileModulus >= tensileModulus &&
+            material.maxPricePerKg <= maxPricePerKg &&
+            selectedTechnologies.includes(material.PrintingTechnology)
+        );
+
+        let results = "<h2>Materials that meet the criteria:</h2>";
+        if (filteredMaterials.length === 0) {
+          results += "<p>No materials found.</p>";
+        } else {
+          filteredMaterials.forEach((material) => {
+            results += `<p>
+                        <strong>Material:</strong> ${material.name}<br>
+                        <strong>Bed Temp:</strong> ${material.bedTemp}°C<br>
+                        <strong>Enclosure Temp:</strong> ${material.enclosureTemp}°C<br>
+                        <strong>Hotend Temp:</strong> ${material.hotendTemp}°C<br>
+                        <strong>Price Per Kg:</strong> ${material.maxPricePerKg} USD<br>
+                        <strong>Tensile Strength:</strong> ${material.tensileStrength} MPa<br>
+                        <strong>Tensile Modulus:</strong> ${material.tensileModulus} GPa<br>
+                        <strong>Heat Deflection Temperature:</strong> ${material.heatDeflectionTemp}°C<br>
+                        <strong>Chemical Resistance:</strong> ${material.chemicalResistance}<br>
+                        <strong>Ease of Printing:</strong> ${material.easeOfPrinting}<br>
+                        <strong>Other Info:</strong> ${material.otherInfo}<br>
+                        <strong>Flame Retardant:</strong> ${material.UL94V0}<br>
+                        <strong>Flexible:</strong> ${material.Flexible}<br>
+                        <strong>Crystallinity:</strong> ${material.Crystallinity}<br>
+                        <strong>Link:</strong> ${material.Link}<br>
+                        
+                    </p><hr>`;
+          });
+
+          // Prepare chart data
+          const hdtData = filteredMaterials.map(
+            (material) => material.heatDeflectionTemp
+          );
+          const priceData = filteredMaterials.map(
+            (material) => material.maxPricePerKg
+          );
+          const tensileStrengthData = filteredMaterials.map(
+            (material) => material.tensileStrength
+          );
+          const tensileModulusData = filteredMaterials.map(
+            (material) => material.tensileModulus
+          );
+
+          // Destroy old charts
+          charts.forEach((chart) => chart.destroy());
+          charts = [];
+
+          // HDT vs Price Chart
+          const hdtPriceCtx = document
+            .getElementById("hdtPriceChart")
+            .getContext("2d");
+          charts.push(
+            new Chart(hdtPriceCtx, {
+              type: "scatter",
+              data: {
+                labels: Array(hdtData.length).fill(""),
+                datasets: [
+                  {
+                    label: "HDT vs Price per kg",
+                    data: hdtData.map((hdt, i) => ({
+                      x: priceData[i],
+                      y: hdt,
+                    })),
+                    backgroundColor: "rgba(0, 123, 255, 0.6)",
+                    borderColor: "rgba(0, 123, 255, 1)",
+                    borderWidth: 1,
+                  },
+                ],
+              },
+              options: {
+                scales: {
+                  x: { title: { display: true, text: "Price per kg (USD)" } },
+                  y: {
+                    title: { display: true, text: "Heat Deflection Temp (°C)" },
+                  },
+                },
+              },
+            })
+          );
+
+          // Create the Tensile Strength vs Price chart
+          const tensileStrengthPriceCtx = document
+            .getElementById("tensileStrengthPriceChart")
+            .getContext("2d");
+          charts.push(
+            new Chart(tensileStrengthPriceCtx, {
+              type: "scatter",
+              data: {
+                labels: Array(tensileStrengthData.length).fill(""),
+                datasets: [
+                  {
+                    label: "Tensile Strength vs Price per kg",
+                    data: tensileStrengthData.map((strength, i) => ({
+                      x: priceData[i],
+                      y: strength,
+                    })),
+                    backgroundColor: "rgba(40, 167, 69, 0.6)",
+                    borderColor: "rgba(40, 167, 69, 1)",
+                    borderWidth: 1,
+                  },
+                ],
+              },
+              options: {
+                scales: {
+                  x: { title: { display: true, text: "Price per kg (USD)" } },
+                  y: {
+                    title: { display: true, text: "Tensile Strength (MPa)" },
+                  },
+                },
+              },
+            })
+          );
+
+          // Create the Tensile Modulus vs Price chart
+          const tensileModulusPriceCtx = document
+            .getElementById("tensileModulusPriceChart")
+            .getContext("2d");
+          charts.push(
+            new Chart(tensileModulusPriceCtx, {
+              type: "scatter",
+              data: {
+                labels: Array(tensileModulusData.length).fill(""),
+                datasets: [
+                  {
+                    label: "Tensile Modulus vs Price per kg",
+                    data: tensileModulusData.map((modulus, i) => ({
+                      x: priceData[i],
+                      y: modulus,
+                    })),
+                    backgroundColor: "rgba(255, 193, 7, 0.6)",
+                    borderColor: "rgba(255, 193, 7, 1)",
+                    borderWidth: 1,
+                  },
+                ],
+              },
+              options: {
+                scales: {
+                  x: { title: { display: true, text: "Price per kg (USD)" } },
+                  y: {
+                    title: { display: true, text: "Tensile Modulus (GPa)" },
+                  },
+                },
+              },
+            })
+          );
+        }
+
+        if (filteredMaterials.length > 0) {
+          // Show the graph titles
+          document.getElementById("hdtPriceTitle").classList.remove("hidden");
+          document
+            .getElementById("tensileStrengthPriceTitle")
+            .classList.remove("hidden");
+          document
+            .getElementById("tensileModulusPriceTitle")
+            .classList.remove("hidden");
+        } else {
+          // Optionally, hide titles again if no materials are found
+          document.getElementById("hdtPriceTitle").classList.add("hidden");
+          document
+            .getElementById("tensileStrengthPriceTitle")
+            .classList.add("hidden");
+          document
+            .getElementById("tensileModulusPriceTitle")
+            .classList.add("hidden");
+        }
+
+        document.getElementById("results").innerHTML = results;
+      }
+
+      function resetCharts() {
+        charts.forEach((chart) => chart.destroy());
+        charts = [];
+
+        const chartIds = [
+          "hdtPriceChart",
+          "tensileStrengthPriceChart",
+          "tensileModulusPriceChart",
+        ];
+        chartIds.forEach((chartId) => {
+          const canvas = document.getElementById(chartId);
+          const ctx = canvas.getContext("2d");
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+        });
+
+        document.getElementById("results").innerHTML = "";
+
+        // Hide the graph titles
+        document.getElementById("hdtPriceTitle").classList.add("hidden");
+        document
+          .getElementById("tensileStrengthPriceTitle")
+          .classList.add("hidden");
+        document
+          .getElementById("tensileModulusPriceTitle")
+          .classList.add("hidden");
+      }
+
+      function openModal() {
+        document.getElementById("infoModal").style.display = "block";
+      }
+
+      function closeModal() {
+        document.getElementById("infoModal").style.display = "none";
+      }
+    </script>
+  </body>
+</html>
